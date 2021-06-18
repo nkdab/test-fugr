@@ -21,7 +21,7 @@ export async function getData(searchType = 'small') {
       : { ...searchParams, rows: 1000, delay: 3 };
   dataUrl.search = new URLSearchParams(params).toString();
   try {
-    const res = await fetch(dataUrl, { method: 'GET', mode: 'no-cors' });
+    const res = await fetch(dataUrl, { method: 'GET'});
     return res.json();
   } catch (e) {
     throw e;
