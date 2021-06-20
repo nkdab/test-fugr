@@ -2,6 +2,14 @@ import { useSortableData } from '../../hooks/useSortableData';
 
 export function DataTable({ persons }) {
   const { items, requestSort, sortConfig } = useSortableData(persons);
+  const tableHeaders = ['id', 'firstName', 'lastName', 'email', 'phone'];
+  const headElements = tableHeaders.map((e) => {
+    return (
+      <th scope="col" onClick={() => requestSort(e)} key={e}>
+        {e} {sortConfig?.key === e ? sortConfig?.direction : ''}
+      </th>
+    );
+  });
   const elements = items.map((e) => {
     return (
       <tr key={e.id + e.phone}>
@@ -16,23 +24,7 @@ export function DataTable({ persons }) {
   return (
     <table className="table">
       <thead>
-        <tr>
-          <th scope="col" onClick={() => requestSort('id')}>
-            id {sortConfig.direction && sortConfig.direction}
-          </th>
-          <th scope="col" onClick={() => requestSort('firstName')}>
-            firstName
-          </th>
-          <th scope="col" onClick={() => requestSort('lastName')}>
-            lastName
-          </th>
-          <th scope="col" onClick={() => requestSort('email')}>
-            email
-          </th>
-          <th scope="col" onClick={() => requestSort('phone')}>
-            phone
-          </th>
-        </tr>
+        <tr>{headElements}</tr>
       </thead>
       <tbody>{items && elements}</tbody>
     </table>
